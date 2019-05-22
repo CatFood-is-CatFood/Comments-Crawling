@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="800.0" styleClass="background" stylesheets="@CompareTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.crawling.view.CompareController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <SplitPane dividerPositions="0.7380952380952381" focusTraversable="true" prefHeight="600.0" prefWidth="800.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <items>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="578.0" prefWidth="584.0">
+          <children>
+            <TableView fx:id="goodsTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="395.0" prefWidth="564.0" AnchorPane.bottomAnchor="104.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+              <columns>
+                <TableColumn fx:id="pictureColumn" maxWidth="80.0" minWidth="80.0" sortable="false" text="Picture" />
+                <TableColumn fx:id="nameColumn" maxWidth="80.0" minWidth="80.0" sortable="false" text="Name" />
+                <TableColumn fx:id="actionCol" maxWidth="388.0" minWidth="388.0" prefWidth="388.0" sortable="false" text="Comments" />
+              </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+            </TableView>
+            <HBox id="HBox" alignment="CENTER" layoutX="38.0" layoutY="20.0" spacing="5.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="37.0" AnchorPane.topAnchor="20.0">
+              <children>
+                <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="92.0" text="KeyWords:" />
+                <TextField fx:id="inKeyWord" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="330.0" />
+                <Button fx:id="add" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAdd" prefHeight="36.0" prefWidth="77.0" text="Add" />
+              </children>
+            </HBox>
+                  <HBox layoutX="110.0" layoutY="493.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="340.0" spacing="30.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="134.0">
+                     <children>
+                        <CheckBox fx:id="ten" layoutX="112.0" layoutY="530.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="25.0" text="10 words" />
+                        <CheckBox fx:id="thirty" layoutX="263.0" layoutY="530.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="25.0" text="30 words" />
+                        <CheckBox fx:id="fifty" layoutX="430.0" layoutY="530.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="25.0" text="50 words" />
+                     </children>
+                  </HBox>
+  <Button fx:id="back" layoutX="484.0" layoutY="486.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleBack" prefHeight="80.0" prefWidth="90.0" text="Back" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="484.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="486.0" />
+                  <Button fx:id="confirm" layoutX="110.0" layoutY="526.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleConfirm" prefHeight="36.0" prefWidth="340.0" text="Confirm" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="526.0" />
+                  <Label layoutX="24.0" layoutY="513.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="26.0" text="More than:" />
+          </children>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <children>
+            <SplitPane dividerPositions="0.5" focusTraversable="true" orientation="VERTICAL" prefHeight="598.0" prefWidth="206.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <items>
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="283.0" prefWidth="202.0">
+                  <children>
+                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="171.0" text="Chosed KeyWords:" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                      <font>
+                        <Font name="System Bold Italic" size="18.0" fx:id="x1" />
+                      </font>
+                    </Label>
+                    <FlowPane fx:id="flowPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="215.0" prefWidth="162.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
+                  </children>
+                </AnchorPane>
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="283.0" prefWidth="202.0" styleClass="background">
+                  <children>
+                    <SplitPane dividerPositions="0.7457044673539519" focusTraversable="true" orientation="VERTICAL" prefHeight="295.0" prefWidth="204.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <items>
+                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="205.0" prefWidth="200.0" styleClass="background">
+                          <children>
+                                          <VBox layoutX="48.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="177.0" prefWidth="160.0" spacing="15.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="14.0">
+                                             <children>
+                                  <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="160.0" text="Grade Rule:">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin></Label>
+                                  <MenuButton fx:id="levelOne" layoutX="51.0" layoutY="119.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="160.0" styleClass="menubutton" text="level 1" />
+                                  <MenuButton id="levelThree" fx:id="levelTwo" layoutX="51.0" layoutY="206.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="160.0" styleClass="menubutton" text="level 2" />
+                                  <MenuButton fx:id="levelThree" layoutX="51.0" layoutY="295.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="160.0" styleClass="menubutton" text="level 3">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin></MenuButton>
+                                             </children>
+                                          </VBox>
+                          </children>
+                        </AnchorPane>
+                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="66.0" prefWidth="200.0" styleClass="background">
+                          <children>
+                          <SplitMenuButton id="compare" fx:id="compare" layoutX="20.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="160.0" styleClass="spiltmenubutton" text="Compare" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="15.0">
+                            <items>
+                              <MenuItem fx:id="grade" mnemonicParsing="false" onAction="#handleGradeChart" text="Grade" />
+                              <MenuItem fx:id="keyWords" mnemonicParsing="false" onAction="#handleKeyWordChart" text="KeyWords" />
+                              <MenuItem fx:id="applauseRate" mnemonicParsing="false" onAction="#handleApplauseRateChart" text="Applause Rate" />
+                            </items>
+                          </SplitMenuButton>
+                          </children>
+                        </AnchorPane>
+                      </items>
+                    </SplitPane>
+                  </children>
+                </AnchorPane>
+              </items>
+            </SplitPane>
+          </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
+  </children>
+</AnchorPane>

@@ -1,0 +1,111 @@
+.root {
+    -fx-background-color: #E8E8E8;
+}
+
+.background {
+    -fx-background-image: url("/ch/makery/crawling/view/RootBG.jpg");
+}
+
+.label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: black;
+    -fx-alignment: center;
+    -fx-opacity: 0.8;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-cell {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-alignment: center;
+}
+
+.table-cell#priceColumn {
+    -fx-text-fill: #ff0000;
+    -fx-font-weight: bolder;
+}
+
+.table-cell#commentColumn{
+    -fx-font-weight: bolder;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: transparent, derive(#1d1d1d, 100%);
+}
+
+.split-pane:vertical > .split-pane-divider {
+    -fx-background-color: transparent, derive(#1d1d1d, 100%);
+}
+
+.text-field {
+    -fx-font-size: 11pt;
+    -fx-font-family: "YaHei Consolas Hybrid";
+}
+
+#priceDownLimit #priceUpperLimit {
+    -fx-alignment: center;
+}
+
+.button {
+    -fx-padding: 5 22 5 22;
+    -fx-font-family: "YaHei Consolas Hybrid", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 0, 0, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(#3F3F3F, #8F8F8F);
+    -fx-text-fill: white;
+}
+
+#search {
+    -fx-font-family: "Arial Black";
+    -fx-font-size: 10pt;
+    -fx-fill: #818181;
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 1), 10, 0.0, 0, 2);
+}
+
+.menubutton {
+    -fx-padding: 5 22 5 22;
+    -fx-font-family: "YaHei Consolas Hybrid", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 0, 0, 0, 1);
+}
+
+.menubutton:hover {
+    -fx-background-color: linear-gradient(#3F3F3F, #8F8F8F);
+    -fx-text-fill: white;
+}
+
+.spiltmenubutton {
+    -fx-padding: 5 22 5 22;
+    -fx-font-family: "YaHei Consolas Hybrid", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 0, 0, 0, 1);
+}
+
+.spiltmenubutton:hover {
+    -fx-background-color: linear-gradient(#3F3F3F, #8F8F8F);
+    -fx-text-fill: white;
+}
+
+.check-box{
+    -fx-font-family: "YaHei Consolas Hybrid", Helvetica, Arial, sans-serif;
+    -fx-font-size: 13pt;
+    -fx-font-weight: bold;
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="center" hgap="10" prefHeight="159.0" prefWidth="275.0" styleClass="background" stylesheets="@RootTheme.css" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.crawling.view.SaveQuestionController">
+    <padding>
+        <Insets bottom="10" left="25" right="25" top="25" />
+    </padding>
+   <children>
+      <Label alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="240.0" text="Do you want to Save?" textAlignment="CENTER" />
+      <HBox prefHeight="1.0" prefWidth="200.0" spacing="60.0" GridPane.rowIndex="2">
+         <children>
+              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleYes" prefHeight="36.0" prefWidth="80.0" text="Yes">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin></Button>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleNo" prefHeight="36.0" prefWidth="80.0" text="No">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin></Button>
+         </children>
+      </HBox>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

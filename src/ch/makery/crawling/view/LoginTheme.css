@@ -1,0 +1,47 @@
+.root {
+    -fx-background-image: url("LoginBG.jpg");
+}
+
+.label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+    -fx-text-fill: black;
+}
+
+.text{
+    -fx-font-size: 12pt;
+    -fx-font-family: "YaHei Consolas Hybrid";
+}
+
+#Login {
+    -fx-font-size: 32px;
+    -fx-font-family: "Arial Black";
+    -fx-fill: #4F4F4F;
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+.button {
+    -fx-padding: 5 22 5 22;
+    -fx-font-family: "Arial Narrow", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-font-weight: bolder;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 0, 0, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(#3F3F3F, #8F8F8F);
+    -fx-text-fill: white;
+}
+
+.button:horizontal {
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 1), 10, 0.0, 0, 2);
+}
+
+.check-box{
+    -fx-text-fill: black;
+}
+
+.text-field{
+    -fx-font-weight: bolder;
+}

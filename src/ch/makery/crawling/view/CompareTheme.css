@@ -1,0 +1,76 @@
+.root {
+    -fx-background-color: #E8E8E8;
+}
+
+.background {
+    -fx-background-image: url("/ch/makery/crawling/view/RootBG.jpg");
+}
+
+.label {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: black;
+    -fx-alignment: center;
+    -fx-opacity: 0.8;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-cell {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-alignment: center;
+}
+
+.table-cell#priceColumn {
+    -fx-text-fill: #ff0000;
+    -fx-font-weight: bolder;
+}
+
+.table-cell#commentColumn{
+    -fx-font-weight: bolder;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: transparent, derive(#1d1d1d, 100%);
+}
+
+.split-pane:vertical > .split-pane-divider {
+    -fx-background-color: transparent, derive(#1d1d1d, 100%);
+}
+
+.text-field {
+    -fx-font-size: 11pt;
+    -fx-font-family: "YaHei Consolas Hybrid";
+}
+
+.button {
+    -fx-font-family: "YaHei Consolas Hybrid", Helvetica, Arial, sans-serif;
+    -fx-font-size: 10pt;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(#3F3F3F, #8F8F8F);
+    -fx-text-fill: white;
+}
+
+.check-box{
+    -fx-font-family: "YaHei Consolas Hybrid", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-font-weight: bolder;
+}
+
+.scroll-pane{
+    -fx-alignment: center;
+}
