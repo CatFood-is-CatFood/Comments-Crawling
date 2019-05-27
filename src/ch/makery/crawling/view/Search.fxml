@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.input.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
@@ -25,12 +26,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <HBox layoutX="614.0" layoutY="544.0" spacing="5.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
-                     <children>
-                        <Button fx:id="add" layoutX="614.0" layoutY="544.0" mnemonicParsing="false" onAction="#handleAddGoods" prefHeight="36.0" text="Add" />
-                        <Button fx:id="delete" layoutX="721.0" layoutY="544.0" mnemonicParsing="false" onAction="#handleDeleteChosen" prefHeight="36.0" text="Delete" />
-                     </children>
-                  </HBox>
+                  <Button fx:id="delete" layoutX="401.0" layoutY="433.0" mnemonicParsing="false" onAction="#handleDeleteChosen" prefHeight="36.0" text="Delete" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                   <HBox layoutX="20.0" layoutY="453.0" spacing="5.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
                      <children>
                         <TextField fx:id="priceDownLimit" layoutX="20.0" layoutY="453.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="36.0" prefWidth="60.0" text="00.00" AnchorPane.leftAnchor="20.0" />
@@ -45,16 +41,34 @@
                   </HBox>
                   <Label layoutX="20.0" layoutY="566.0" prefHeight="24.0" text="Price Range :" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" />
                   <Label layoutX="358.0" layoutY="415.0" prefHeight="24.0" text="Choose Goods :" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="20.0" />
+                  <MenuBar layoutY="-5.0" prefHeight="38.0" prefWidth="516.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="Edit">
+                        <items>
+                          <MenuItem mnemonicParsing="false" onAction="#handleUndo" text="Undo">
+                                 <accelerator>
+                                    <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                 </accelerator>
+                              </MenuItem>
+                              <MenuItem mnemonicParsing="false" onAction="#handleRedo" text="Redo">
+                                 <accelerator>
+                                    <KeyCodeCombination alt="UP" code="Y" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                 </accelerator>
+                              </MenuItem>
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
                </children>
             </AnchorPane>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="274.0">
                <children>
-                  <TableView fx:id="chosenTable" layoutX="10.0" layoutY="41.0" prefHeight="406.0" prefWidth="234.0" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                  <TableView fx:id="chosenTable" layoutX="10.0" layoutY="41.0" prefHeight="406.0" prefWidth="234.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                     <columns>
-                        <TableColumn maxWidth="223.0" prefWidth="223.0" sortable="false" text="Chosen">
+                        <TableColumn maxWidth="223.0" prefWidth="219.0" sortable="false" text="Chosen">
                            <columns>
-                            <TableColumn fx:id="chosenPictureColumn" maxWidth="111.0" minWidth="111.0" prefWidth="111.0" sortable="false" text="Picture" />
-                              <TableColumn fx:id="chosenNameColumn" maxWidth="111.0" minWidth="111.0" prefWidth="111.0" sortable="false" text="Name" />
+                            <TableColumn fx:id="chosenPictureColumn" maxWidth="80.0" minWidth="80.0" sortable="false" text="Picture" />
+                              <TableColumn fx:id="chosenNameColumn" maxWidth="139.0" minWidth="139.0" prefWidth="139.0" sortable="false" text="Name" />
                            </columns>
                         </TableColumn>
                     </columns>
@@ -62,7 +76,8 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Button fx:id="Compare" layoutX="177.0" layoutY="432.0" mnemonicParsing="false" onAction="#handleShowCompare" text="Compare" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                  <Button fx:id="Compare" layoutX="177.0" layoutY="432.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleShowCompare" prefHeight="36.0" text="Compare" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                  <Button fx:id="add" layoutX="20.0" layoutY="434.0" mnemonicParsing="false" onAction="#handleAddGoods" prefHeight="36.0" text="Add" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
                </children>
             </AnchorPane>
         </items>

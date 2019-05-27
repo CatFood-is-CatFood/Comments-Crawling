@@ -3,9 +3,14 @@ package ch.makery.crawling.view;
 import ch.makery.crawling.model.Goods;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ch.makery.crawling.MainApp;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -13,12 +18,17 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import java.awt.*;
 import java.io.*;
 import java.util.*;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SearchController {
+    private Stack<ObservableList<Goods>> undo = new Stack<>();
+    private Stack<ObservableList<Goods>> redo = new Stack<>();
+
     @FXML
     private TextField inputGoodsName = new TextField();
     @FXML
@@ -72,7 +82,6 @@ public class SearchController {
      */
     @FXML
     private void initialize() {
-
         inputGoodsName.clear();
         inputGoodsName.setPromptText("Please input what you want to search");
         inputGoodsName.setOnKeyReleased(e -> {
@@ -102,6 +111,22 @@ public class SearchController {
             return cell;
         });
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().goodsNameProperty());
+        nameColumn.setCellFactory(col -> {
+            TableCell<Goods, String> cell = new TableCell<Goods, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    this.setText(null);
+                    if (!empty) {
+                        Tooltip tooltip = new Tooltip();
+                        tooltip.setText(this.getTableView().getItems().get(this.getIndex()).getGoodsName());
+                        this.setTooltip(tooltip);
+                        this.setText(this.getTableView().getItems().get(this.getIndex()).getGoodsName());
+                    }
+                }
+            };
+            return cell;
+        });
         priceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
         commentColumn.setCellValueFactory(cellData -> cellData.getValue().commentsNumberProperty());
         commentColumn.setCellFactory(col -> {
@@ -160,6 +185,22 @@ public class SearchController {
         });
 
         chosenNameColumn.setCellValueFactory(cellData -> cellData.getValue().goodsNameProperty());
+        chosenNameColumn.setCellFactory(col -> {
+            TableCell<Goods, String> cell = new TableCell<Goods, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    this.setText(null);
+                    if (!empty) {
+                        Tooltip tooltip = new Tooltip();
+                        tooltip.setText(this.getTableView().getItems().get(this.getIndex()).getGoodsName());
+                        this.setTooltip(tooltip);
+                        this.setText(this.getTableView().getItems().get(this.getIndex()).getGoodsName());
+                    }
+                }
+            };
+            return cell;
+        });
 
         priceDownLimit.clear();
         priceDownLimit.setPromptText("00.00");
@@ -219,6 +260,10 @@ public class SearchController {
             selectedIndex = chosenTable.getSelectionModel().getSelectedIndex();
         }
         if (selectedIndex >= 0) {
+            ObservableList<Goods> list = FXCollections.synchronizedObservableList(FXCollections.observableArrayList());
+            list.addAll(chosenTable.getItems());
+            undo.push(list);
+            redo.clear();
             chosenTable.getItems().remove(selectedIndex);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -239,6 +284,10 @@ public class SearchController {
         if (selectedIndex >= 0) {
             Goods goods = goodsTable.getItems().get(selectedIndex);
             if (!chosenTable.getItems().contains(goods)) {
+                ObservableList<Goods> list = FXCollections.synchronizedObservableList(FXCollections.observableArrayList());
+                list.addAll(chosenTable.getItems());
+                undo.push(list);
+                redo.clear();
                 chosenTable.getItems().add(goods);
                 goodsTable.getSelectionModel().select(selectedIndex + 1);
             } else {
@@ -381,8 +430,9 @@ public class SearchController {
         }
 
         DownComment(mainApp);
+        undo.clear();
+        redo.clear();
         mainApp.showCompare();
-
     }
 
     public static void DownComment(MainApp mainApp) {
@@ -434,6 +484,30 @@ public class SearchController {
 
             good.setComments(comments);
         }
+    }
+
+    public void handleUndo(){
+        if(undo.size()>0){
+            ObservableList<Goods> list = undo.pop();
+            ObservableList<Goods> listpu = FXCollections.synchronizedObservableList(FXCollections.observableArrayList());
+            listpu.addAll(chosenTable.getItems());
+            redo.push(listpu);
+            mainApp.getChosenData().clear();
+            mainApp.getChosenData().addAll(list);
+        }else
+            Toolkit.getDefaultToolkit().beep();
+    }
+
+    public void handleRedo(){
+        if(redo.size()>0){
+            ObservableList<Goods> list = redo.pop();
+            ObservableList<Goods> listpu = FXCollections.synchronizedObservableList(FXCollections.observableArrayList());
+            listpu.addAll(chosenTable.getItems());
+            undo.push(listpu);
+            mainApp.getChosenData().clear();
+            mainApp.getChosenData().addAll(list);
+        }else
+            Toolkit.getDefaultToolkit().beep();
     }
 }
 

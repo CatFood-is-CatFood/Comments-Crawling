@@ -43,7 +43,7 @@ public class MainApp extends Application {
     public MainApp() {
     }
 
-    public void setTimer(Timer timer){
+    public void setTimer(Timer timer) {
         this.timer = timer;
     }
 
@@ -138,8 +138,8 @@ public class MainApp extends Application {
 
                 if (isSave) {
                     e.consume();
-                    if(file!=null)
-                    saveGoodsDataToFile(file);
+                    if (file != null)
+                        saveGoodsDataToFile(file);
                     else {
                         FileChooser fileChooser = new FileChooser();
 

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import ch.makery.crawling.MainApp;
 
@@ -19,6 +20,7 @@ public class RootLayoutController {
 
     @FXML
     private void handleNew() {
+        mainApp.getTimer().cancel();
         mainApp.getChosenData().clear();
         mainApp.setGoodsFilePath(null);
     }
@@ -36,6 +38,7 @@ public class RootLayoutController {
         File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
 
         if (file != null) {
+            mainApp.getTimer().cancel();
             mainApp.loadGoodsDataFromFile(file);
         }
     }
@@ -90,6 +93,7 @@ public class RootLayoutController {
 
     @FXML
     private void handleClear() {
+        mainApp.getTimer().cancel();
         mainApp.getCookiesUsing().clear();
         mainApp.getCookiesSaved().clear();
     }

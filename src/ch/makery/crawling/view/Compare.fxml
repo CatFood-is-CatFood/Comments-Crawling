@@ -49,12 +49,18 @@
               <items>
                 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="283.0" prefWidth="202.0">
                   <children>
-                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="171.0" text="Chosed KeyWords:" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="171.0" text="Chosed KeyWords:" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0">
                       <font>
                         <Font name="System Bold Italic" size="18.0" fx:id="x1" />
                       </font>
                     </Label>
-                    <FlowPane fx:id="flowPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="215.0" prefWidth="162.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
+                              <ScrollPane fx:id="scroll" layoutX="1.0" layoutY="59.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="175.0" prefWidth="190.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="44.0" />
+                              <HBox layoutX="10.0" layoutY="235.0" spacing="1.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+                                 <children>
+                                    <TextField fx:id="time" layoutX="14.0" layoutY="237.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="100.0" AnchorPane.leftAnchor="10.0" />
+                                    <Button layoutX="113.0" layoutY="235.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleOK" prefHeight="32.0" prefWidth="70.0" text="OK" />
+                                 </children>
+                              </HBox>
                   </children>
                 </AnchorPane>
                 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="283.0" prefWidth="202.0" styleClass="background">
@@ -81,7 +87,7 @@
                         </AnchorPane>
                         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="66.0" prefWidth="200.0" styleClass="background">
                           <children>
-                          <SplitMenuButton id="compare" fx:id="compare" layoutX="20.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="160.0" styleClass="spiltmenubutton" text="Compare" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="15.0">
+                          <SplitMenuButton id="compare" fx:id="compare" layoutX="20.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleCompare" prefHeight="36.0" prefWidth="160.0" styleClass="spiltmenubutton" text="Compare" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="15.0">
                             <items>
                               <MenuItem fx:id="grade" mnemonicParsing="false" onAction="#handleGradeChart" text="Grade" />
                               <MenuItem fx:id="keyWords" mnemonicParsing="false" onAction="#handleKeyWordChart" text="KeyWords" />

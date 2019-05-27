@@ -20,7 +20,7 @@
                         <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Open...">
+                  <MenuItem fx:id="open" mnemonicParsing="false" onAction="#handleOpen" text="Open...">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>

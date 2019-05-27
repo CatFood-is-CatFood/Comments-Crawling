@@ -16,6 +16,8 @@ import ch.makery.crawling.model.ChartSet;
 import ch.makery.crawling.model.Goods;
 import ch.makery.crawling.model.KeyType;
 import ch.makery.crawling.model.segmenter;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -55,7 +57,8 @@ public class CompareController {
     @FXML
     private Button add;
     @FXML
-    private FlowPane flowPane;
+    private ScrollPane scroll;
+    private FlowPane flowPane = new FlowPane();
     private MainApp mainApp;
 
     @FXML
@@ -82,31 +85,39 @@ public class CompareController {
     @FXML
     private Button confirm;
 
+    @FXML
+    private TextField time = new TextField();
+
     public CompareController() {
     }
 
     @FXML
     private void initialize() {
+        scroll.setContent(flowPane);
+        flowPane.setMaxWidth(180);
+        scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
         ten.setIndeterminate(false);
         ten.setSelected(false);
         thirty.setIndeterminate(false);
         thirty.setSelected(false);
         fifty.setIndeterminate(false);
         fifty.setSelected(false);
-        ten.setOnAction(e->{
-            if(!ten.isSelected()&&(thirty.isSelected()||fifty.isSelected()))
+        ten.setOnAction(e -> {
+            if (!ten.isSelected() && (thirty.isSelected() || fifty.isSelected()))
                 ten.setSelected(true);
         });
-        thirty.setOnAction(e->{
-            if(thirty.isSelected()){
+        thirty.setOnAction(e -> {
+            if (thirty.isSelected()) {
                 ten.setSelected(true);
-            }else{
-                if(fifty.isSelected())
+            } else {
+                if (fifty.isSelected())
                     thirty.setSelected(true);
             }
         });
-        fifty.setOnAction(e->{
-            if(fifty.isSelected()){
+        fifty.setOnAction(e -> {
+            if (fifty.isSelected()) {
                 ten.setSelected(true);
                 thirty.setSelected(true);
             }
@@ -133,101 +144,48 @@ public class CompareController {
             return cell;
         });
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().goodsNameProperty());
+        nameColumn.setCellFactory(col -> {
+            TableCell<Goods, String> cell = new TableCell<Goods, String>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    this.setText(null);
+                    if (!empty) {
+                        Tooltip tooltip = new Tooltip();
+                        tooltip.setText(this.getTableView().getItems().get(this.getIndex()).getGoodsName());
+                        this.setTooltip(tooltip);
+                        this.setText(this.getTableView().getItems().get(this.getIndex()).getGoodsName());
+                    }
+                }
+            };
+            return cell;
+        });
 
         inKeyWord.setOnKeyReleased(e -> {
             if (e.getCode() == KeyCode.ENTER)
                 handleAdd();
         });
+
+        time.clear();
+        time.setPromptText("周期1min起");
+        time.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("^[0-9]+$")) {
+                    String str = newValue.replaceAll("[^0-9]", "");
+                    time.setText(str);
+                }
+            }
+        });
+        time.setOnKeyReleased(e -> {
+            if (e.getCode() == KeyCode.ENTER)
+                handleOK();
+        });
     }
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-
-        mainApp.setTimer(new Timer());
-        mainApp.getTimer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                List<Goods> list = mainApp.getChosenData();
-                for (int i = 0; i < list.size(); i++) {
-                    Set<String> hash = Collections.synchronizedSet(new HashSet<>());
-                    List<String> comments = Collections.synchronizedList(new ArrayList<>());
-                    List<String> commentsURL = Collections.synchronizedList(new ArrayList<>());
-                    Goods good = list.get(i);
-
-                    File file = new File("data/Comments/" + good.getGoodsName());
-                    if (file.exists() || file.mkdirs()) {
-                        for (int j = 0; j < 100; j++)
-                            commentsURL.add("https://rate.tmall.com/list_detail_rate.htm?itemId=" + good.getItemId() + "&sellerId=" + good.getSellerId() + "&currentPage=" + (j + 1));
-
-                        commentsURL.parallelStream().forEach(url -> {
-                            try {
-                                FileWriter fw = new FileWriter("data/Comments/" + good.getGoodsName() + "/" + (commentsURL.indexOf(url) + 1) + ".txt");
-                                String document = Jsoup.connect(url).cookies(mainApp.getCookiesUsing()).get().text();
-                                String reComments = "\"(content|rateContent)\":(?!\"此用户没有填写评论!\")(?!\"评价方未及时做出评价,系统默认好评!\")\"(.*?)\"";
-                                Pattern pattern = Pattern.compile(reComments);
-                                Matcher matcher = pattern.matcher(document);
-                                while (matcher.find()) {
-                                    if (!hash.contains(matcher.group(2))) {
-                                        hash.add(matcher.group(2));
-                                        comments.add(matcher.group(2));
-                                        fw.write(matcher.group(2) + "\n");
-                                        fw.flush();
-                                    }
-                                }
-                                fw.close();
-                            } catch (IOException ioe) {
-                                ioe.printStackTrace();
-                            }
-                        });
-                    }
-                    good.setComments(comments);
-                }
-                //System.out.println("success");
-
-                actionCol.setCellFactory(cells -> {
-                    TableCell<Goods, Boolean> call = new TableCell<Goods, Boolean>() {
-                        final ScrollPane scrollPane = new ScrollPane();
-                        final HBox hBox = new HBox();
-
-                        @Override
-                        protected void updateItem(Boolean item, boolean empty) {
-                            if (this.getIndex() < cells.getTableView().getItems().size() && this.getIndex() >= 0) {
-                                super.updateItem(item, empty);
-                                scrollPane.setContent(hBox);
-                                Goods good = cells.getTableView().getItems().get(this.getIndex());
-                                for (String str : good.getKeyWord()) {
-                                    List<String> list1 = segmenter.customerCount(good.getComments(), str);
-                                    if (list1.size() < 1) {
-                                        Button b = new Button(str + " 0");
-                                        hBox.getChildren().add(b);
-                                        continue;
-                                    }
-                                    Button b = new Button(str + " " + KeyType.wordCounter(good, str));
-                                    //添加监听器
-                                    b.setOnAction(new EventHandler<ActionEvent>() {
-                                        @Override
-                                        public void handle(ActionEvent event) {
-                                            showKeyComments(str, good);
-                                        }
-                                    });
-                                    hBox.getChildren().add(b);
-                                }
-
-                                if (!empty) {
-                                    setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-                                    setGraphic(scrollPane);
-                                } else {
-                                    setGraphic(null);
-                                }
-                            }
-
-                        }
-                    };
-                    return call;
-                });
-            }
-        },300000,300000);
-
 
         goodsTable.setItems(mainApp.getChosenData());
 
@@ -309,7 +267,7 @@ public class CompareController {
                 Label lab = new Label("是否删除？");
                 flow.getChildren().add(lab);
 
-                Button ok = new Button("Yse");
+                Button ok = new Button("Yes");
                 ok.setDefaultButton(true);
                 Button cancel = new Button("No");
                 cancel.setCancelButton(true);
@@ -612,6 +570,13 @@ public class CompareController {
     }
 
     @FXML
+    public void handleCompare() {
+        handleGradeChart();
+        handleKeyWordChart();
+        handleApplauseRateChart();
+    }
+
+    @FXML
     private void handleConfirm() {
         int length = 0;
         if (ten.isSelected()) length = 10;
@@ -669,5 +634,97 @@ public class CompareController {
             };
             return call;
         });
+    }
+
+    @FXML
+    public void handleOK() {
+        String str = time.getText().trim();
+        if (!str.equals("") && Integer.parseInt(str) >= 1) {
+            mainApp.setTimer(new Timer());
+            mainApp.getTimer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    List<Goods> list = mainApp.getChosenData();
+                    for (int i = 0; i < list.size(); i++) {
+                        Set<String> hash = Collections.synchronizedSet(new HashSet<>());
+                        List<String> comments = Collections.synchronizedList(new ArrayList<>());
+                        List<String> commentsURL = Collections.synchronizedList(new ArrayList<>());
+                        Goods good = list.get(i);
+
+                        File file = new File("data/Comments/" + good.getGoodsName());
+                        if (file.exists() || file.mkdirs()) {
+                            for (int j = 0; j < 100; j++)
+                                commentsURL.add("https://rate.tmall.com/list_detail_rate.htm?itemId=" + good.getItemId() + "&sellerId=" + good.getSellerId() + "&currentPage=" + (j + 1));
+
+                            commentsURL.parallelStream().forEach(url -> {
+                                try {
+                                    FileWriter fw = new FileWriter("data/Comments/" + good.getGoodsName() + "/" + (commentsURL.indexOf(url) + 1) + ".txt");
+                                    String document = Jsoup.connect(url).cookies(mainApp.getCookiesUsing()).get().text();
+                                    String reComments = "\"(content|rateContent)\":(?!\"此用户没有填写评论!\")(?!\"评价方未及时做出评价,系统默认好评!\")\"(.*?)\"";
+                                    Pattern pattern = Pattern.compile(reComments);
+                                    Matcher matcher = pattern.matcher(document);
+                                    while (matcher.find()) {
+                                        if (!hash.contains(matcher.group(2))) {
+                                            hash.add(matcher.group(2));
+                                            comments.add(matcher.group(2));
+                                            fw.write(matcher.group(2) + "\n");
+                                            fw.flush();
+                                        }
+                                    }
+                                    fw.close();
+                                } catch (IOException ioe) {
+                                    ioe.printStackTrace();
+                                }
+                            });
+                        }
+                        good.setComments(comments);
+                    }
+                    //System.out.println("success");
+
+                    actionCol.setCellFactory(cells -> {
+                        TableCell<Goods, Boolean> call = new TableCell<Goods, Boolean>() {
+                            final ScrollPane scrollPane = new ScrollPane();
+                            final HBox hBox = new HBox();
+
+                            @Override
+                            protected void updateItem(Boolean item, boolean empty) {
+                                if (this.getIndex() < cells.getTableView().getItems().size() && this.getIndex() >= 0) {
+                                    super.updateItem(item, empty);
+                                    scrollPane.setContent(hBox);
+                                    Goods good = cells.getTableView().getItems().get(this.getIndex());
+                                    for (String str : good.getKeyWord()) {
+                                        List<String> list1 = segmenter.customerCount(good.getComments(), str);
+                                        if (list1.size() < 1) {
+                                            Button b = new Button(str + " 0");
+                                            hBox.getChildren().add(b);
+                                            continue;
+                                        }
+                                        Button b = new Button(str + " " + KeyType.wordCounter(good, str));
+                                        //添加监听器
+                                        b.setOnAction(new EventHandler<ActionEvent>() {
+                                            @Override
+                                            public void handle(ActionEvent event) {
+                                                showKeyComments(str, good);
+                                            }
+                                        });
+                                        hBox.getChildren().add(b);
+                                    }
+
+                                    if (!empty) {
+                                        setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                                        setGraphic(scrollPane);
+                                    } else {
+                                        setGraphic(null);
+                                    }
+                                }
+
+                            }
+                        };
+                        return call;
+                    });
+                }
+            }, 0, Integer.parseInt(str) * 60 * 1000);
+        handleConfirm();
+        }
     }
 }
